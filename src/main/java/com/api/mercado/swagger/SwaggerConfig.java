@@ -14,7 +14,7 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("API - Mercado")
-                        .description("Esta é uma API para um mini mercado.")
+                        .description("API para um mini mercado.")
                         .version("1.0.0"));
     }
 

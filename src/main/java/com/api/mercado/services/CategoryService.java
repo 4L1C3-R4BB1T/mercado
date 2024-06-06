@@ -21,8 +21,8 @@ public class CategoryService {
 	@Transactional
 	public CategoryDTO create(CategoryRequest categoryRequest) {
 		Category category = new Category();
-		category.setName(categoryRequest.name());
-		category.setDescription(categoryRequest.description());
+		category.setName(categoryRequest.getName());
+		category.setDescription(categoryRequest.getDescription());
 		repository.save(category);
 		return new CategoryDTO(category);
 	}
@@ -46,8 +46,8 @@ public class CategoryService {
 			throw new RuntimeException("Categoria com id " + id + " não encontrada.");
 		}
 		Category updateCategory = repository.findById(id).get();
-		updateCategory.setName(categoryRequest.name());
-		updateCategory.setDescription(categoryRequest.description());
+		updateCategory.setName(categoryRequest.getName());
+		updateCategory.setDescription(categoryRequest.getDescription());
 		repository.save(updateCategory);
 		return new CategoryDTO(updateCategory);
 	}

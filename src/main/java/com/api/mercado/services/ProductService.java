@@ -25,15 +25,15 @@ public class ProductService {
 
 	@Transactional
 	public ProductDTO create(ProductRequest productRequest) {
-		Optional<Category> category = categoryRepository.findById(productRequest.categoryId());
+		Optional<Category> category = categoryRepository.findById(productRequest.getCategoryId());
 		if (!category.isPresent()) {
-			throw new RuntimeException("Categoria com id " + productRequest.categoryId() + " não encontrada");
+			throw new RuntimeException("Categoria com id " + productRequest.getCategoryId() + " não encontrada.");
 		}
 		Product product = new Product();
-		product.setName(productRequest.name());
-		product.setDescription(productRequest.description());
-		product.setPrice(productRequest.price());
-		product.setStock(productRequest.stock());
+		product.setName(productRequest.getName());
+		product.setDescription(productRequest.getDescription());
+		product.setPrice(productRequest.getPrice());
+		product.setStock(productRequest.getStock());
 		product.setCategory(category.get());
 		repository.save(product);
 		return new ProductDTO(product);
@@ -57,15 +57,15 @@ public class ProductService {
 		if (productNotExists(id)) {
 			throw new RuntimeException("Product com id " + id + " não encontrado.");
 		}
-		Optional<Category> category = categoryRepository.findById(productRequest.categoryId());
-		if (!categoryRepository.findById(productRequest.categoryId()).isPresent()) {
-			throw new RuntimeException("Categoria com id " + productRequest.categoryId() + " não encontrada.");
+		Optional<Category> category = categoryRepository.findById(productRequest.getCategoryId());
+		if (!categoryRepository.findById(productRequest.getCategoryId()).isPresent()) {
+			throw new RuntimeException("Categoria com id " + productRequest.getCategoryId() + " não encontrada.");
 		}
 		Product updateProduct = repository.findById(id).get();
-		updateProduct.setName(productRequest.name());
-		updateProduct.setDescription(productRequest.description());
-		updateProduct.setPrice(productRequest.price());
-		updateProduct.setStock(productRequest.stock());
+		updateProduct.setName(productRequest.getName());
+		updateProduct.setDescription(productRequest.getDescription());
+		updateProduct.setPrice(productRequest.getPrice());
+		updateProduct.setStock(productRequest.getStock());
 		updateProduct.setCategory(category.get());
 		repository.save(updateProduct);
 		return new ProductDTO(updateProduct);
