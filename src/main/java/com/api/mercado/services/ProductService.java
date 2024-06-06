@@ -29,65 +29,58 @@ public class ProductService {
 		if (!category.isPresent()) {
 			throw new RuntimeException("Categoria com id " + productRequest.categoryId() + " não encontrada");
 		}
-
 		Product product = new Product();
 		product.setName(productRequest.name());
 		product.setDescription(productRequest.description());
 		product.setPrice(productRequest.price());
 		product.setStock(productRequest.stock());
 		product.setCategory(category.get());
-
 		repository.save(product);
-
 		return new ProductDTO(product);
 	}
 
 	@Transactional(readOnly = true)
 	public Page<ProductDTO> findAll(Pageable pageable) {
-		Page<Product> products = repository.findAll(pageable);
-		return products.map(x -> new ProductDTO(x));
+		return repository.findAll(pageable).map(x -> new ProductDTO(x));
 	}
 
 	@Transactional(readOnly = true)
 	public ProductDTO findById(Long id) {
-		Optional<Product> product = repository.findById(id);
-		if (product.isPresent()) {
-			return new ProductDTO(product.get());
+		if (productNotExists(id)) {
+			throw new RuntimeException("Product com id " + id + " não encontrado.");
 		}
-		throw new RuntimeException("Produto com id " + id + " não encontrado");
+		return new ProductDTO(repository.findById(id).get());
 	}
 
 	@Transactional
 	public ProductDTO update(Long id, ProductRequest productRequest) {
-		Optional<Product> product = repository.findById(id);
-		if (product.isPresent()) {
-			Optional<Category> category = categoryRepository.findById(productRequest.categoryId());
-			if (!category.isPresent()) {
-				throw new RuntimeException("Categoria com id " + productRequest.categoryId() + " não encontrada");
-			}
-
-			Product updateProduct = product.get();
-
-			updateProduct.setName(productRequest.name());
-			updateProduct.setDescription(productRequest.description());
-			updateProduct.setPrice(productRequest.price());
-			updateProduct.setStock(productRequest.stock());
-			updateProduct.setCategory(category.get());
-
-			repository.save(updateProduct);
-			return new ProductDTO(updateProduct);
+		if (productNotExists(id)) {
+			throw new RuntimeException("Product com id " + id + " não encontrado.");
 		}
-		throw new RuntimeException("Produto com id " + id + " não encontrado");
+		Optional<Category> category = categoryRepository.findById(productRequest.categoryId());
+		if (!categoryRepository.findById(productRequest.categoryId()).isPresent()) {
+			throw new RuntimeException("Categoria com id " + productRequest.categoryId() + " não encontrada.");
+		}
+		Product updateProduct = repository.findById(id).get();
+		updateProduct.setName(productRequest.name());
+		updateProduct.setDescription(productRequest.description());
+		updateProduct.setPrice(productRequest.price());
+		updateProduct.setStock(productRequest.stock());
+		updateProduct.setCategory(category.get());
+		repository.save(updateProduct);
+		return new ProductDTO(updateProduct);
 	}
 
 	@Transactional
 	public void delete(Long id) {
-		Optional<Product> product = repository.findById(id);
-		if (product.isPresent()) {
-			repository.deleteById(id);
-			return;
+		if (productNotExists(id)) {
+			throw new RuntimeException("Product com id " + id + " não encontrado.");
 		}
-		throw new RuntimeException("Product com id " + id + " não encontrado");
+		repository.deleteById(id);
+	}
+
+	private boolean productNotExists(Long id) {
+		return !repository.findById(id).isPresent();
 	}
 
 }

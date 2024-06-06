@@ -1,7 +1,5 @@
 package com.api.mercado.services;
 
-import java.util.Optional;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -31,40 +29,39 @@ public class CategoryService {
 
 	@Transactional(readOnly = true)
 	public Page<CategoryDTO> findAll(Pageable pageable) {
-		Page<Category> categories = repository.findAll(pageable);
-		return categories.map(x -> new CategoryDTO(x));
+		return repository.findAll(pageable).map(x -> new CategoryDTO(x));
 	}
 
 	@Transactional(readOnly = true)
 	public CategoryDTO findById(Long id) {
-		Optional<Category> category = repository.findById(id);
-		if (category.isPresent()) {
-			return new CategoryDTO(category.get());
-		} 
-		throw new RuntimeException("Categoria com id " + id + " não encontrada");
+		if (categoryNotExists(id)) {
+			throw new RuntimeException("Categoria com id " + id + " não encontrada.");
+		}
+		return new CategoryDTO(repository.findById(id).get());
 	}
 
 	@Transactional
 	public CategoryDTO update(Long id, CategoryRequest categoryRequest) {
-		Optional<Category> category = repository.findById(id);
-		if (category.isPresent()) {
-			Category updateCategory = category.get();
-			updateCategory.setName(categoryRequest.name());
-			updateCategory.setDescription(categoryRequest.description());
-			repository.save(updateCategory);
-			return new CategoryDTO(updateCategory);
-		} 
-		throw new RuntimeException("Categoria com id " + id + " não encontrada");
+		if (categoryNotExists(id)) {
+			throw new RuntimeException("Categoria com id " + id + " não encontrada.");
+		}
+		Category updateCategory = repository.findById(id).get();
+		updateCategory.setName(categoryRequest.name());
+		updateCategory.setDescription(categoryRequest.description());
+		repository.save(updateCategory);
+		return new CategoryDTO(updateCategory);
 	}
 
 	@Transactional
 	public void delete(Long id) {
-		Optional<Category> category = repository.findById(id);
-		if (category.isPresent()) {
-			repository.deleteById(id);
-			return;
+		if (categoryNotExists(id)) {
+			throw new RuntimeException("Categoria com id " + id + " não encontrada.");
 		}
-		throw new RuntimeException("Categoria com id " + id + " não encontrada");
+		repository.deleteById(id);
+	}
+
+	private boolean categoryNotExists(Long id) {
+		return !repository.findById(id).isPresent();
 	}
 
 }
