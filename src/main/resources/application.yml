@@ -1,0 +1,13 @@
+spring:
+    application:
+        name: mercado
+    datasource:
+        url: jdbc:postgresql://localhost:5432/mercadoapi
+        username: admin
+        password: admin
+    jpa:
+        hibernate:
+            ddl-auto: none
+        show-sql: true
+    flyway:
+        enabled: true
