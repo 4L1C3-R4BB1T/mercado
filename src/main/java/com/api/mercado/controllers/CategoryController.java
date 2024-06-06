@@ -37,8 +37,7 @@ public class CategoryController {
     @Operation(summary = "Obter todas as categorias")
     @GetMapping
     public ResponseEntity<Page<CategoryDTO>> findAll(Pageable pageable) {
-        Page<CategoryDTO> list = service.findAll(pageable);
-        return ResponseEntity.ok(list);
+        return ResponseEntity.ok(service.findAll(pageable));
     }
 
     @Operation(summary = "Obter categoria por id")

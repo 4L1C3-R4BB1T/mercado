@@ -37,8 +37,7 @@ public class ProductController {
     @Operation(summary = "Obter todos os produtos")
     @GetMapping
     public ResponseEntity<Page<ProductDTO>> findAll(Pageable pageable) {
-        Page<ProductDTO> list = service.findAll(pageable);
-        return ResponseEntity.ok(list);
+        return ResponseEntity.ok(service.findAll(pageable));
     }
 
     @Operation(summary = "Obter produto por id")
