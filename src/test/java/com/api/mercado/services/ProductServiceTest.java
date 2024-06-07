@@ -129,7 +129,7 @@ public class ProductServiceTest {
 
     @Test
     void testGivenAnInvalidId_WhenCallsDelete_ThenShouldBeThrowAnRuntimeException() {
-        var expectedMessageError = "Product com id 1 não encontrado.";
+        var expectedMessageError = "Produto com id 1 não encontrado.";
 
         when(productRepository.findById(1L)).thenReturn(Optional.empty());
 
