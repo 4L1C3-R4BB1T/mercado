@@ -23,8 +23,7 @@ public class CategoryService {
 		Category category = new Category();
 		category.setName(categoryRequest.getName());
 		category.setDescription(categoryRequest.getDescription());
-		repository.save(category);
-		return new CategoryDTO(category);
+		return new CategoryDTO(repository.save(category));
 	}
 
 	@Transactional(readOnly = true)
@@ -48,8 +47,7 @@ public class CategoryService {
 		Category updateCategory = repository.findById(id).get();
 		updateCategory.setName(categoryRequest.getName());
 		updateCategory.setDescription(categoryRequest.getDescription());
-		repository.save(updateCategory);
-		return new CategoryDTO(updateCategory);
+		return new CategoryDTO(repository.save(updateCategory));
 	}
 
 	@Transactional

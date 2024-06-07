@@ -35,8 +35,7 @@ public class ProductService {
 		product.setPrice(productRequest.getPrice());
 		product.setStock(productRequest.getStock());
 		product.setCategory(category.get());
-		repository.save(product);
-		return new ProductDTO(product);
+		return new ProductDTO(repository.save(product));
 	}
 
 	@Transactional(readOnly = true)
@@ -47,7 +46,7 @@ public class ProductService {
 	@Transactional(readOnly = true)
 	public ProductDTO findById(Long id) {
 		if (productNotExists(id)) {
-			throw new RuntimeException("Product com id " + id + " não encontrado.");
+			throw new RuntimeException("Produto com id " + id + " não encontrado.");
 		}
 		return new ProductDTO(repository.findById(id).get());
 	}
@@ -55,7 +54,7 @@ public class ProductService {
 	@Transactional
 	public ProductDTO update(Long id, ProductRequest productRequest) {
 		if (productNotExists(id)) {
-			throw new RuntimeException("Product com id " + id + " não encontrado.");
+			throw new RuntimeException("Produto com id " + id + " não encontrado.");
 		}
 		Optional<Category> category = categoryRepository.findById(productRequest.getCategoryId());
 		if (!categoryRepository.findById(productRequest.getCategoryId()).isPresent()) {
@@ -67,14 +66,13 @@ public class ProductService {
 		updateProduct.setPrice(productRequest.getPrice());
 		updateProduct.setStock(productRequest.getStock());
 		updateProduct.setCategory(category.get());
-		repository.save(updateProduct);
-		return new ProductDTO(updateProduct);
+		return new ProductDTO(repository.save(updateProduct));
 	}
 
 	@Transactional
 	public void delete(Long id) {
 		if (productNotExists(id)) {
-			throw new RuntimeException("Product com id " + id + " não encontrado.");
+			throw new RuntimeException("Produto com id " + id + " não encontrado.");
 		}
 		repository.deleteById(id);
 	}

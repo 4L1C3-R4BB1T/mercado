@@ -17,7 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "categories")
-public class Category {
+public class Category implements Cloneable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,5 +28,14 @@ public class Category {
 
     @Column(length = 255, nullable = false)
     private String description;
+
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
 
 }
