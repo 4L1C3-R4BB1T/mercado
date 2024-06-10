@@ -1,9 +1,8 @@
 package com.api.mercado.services;
 
+import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,8 +38,8 @@ public class ProductService {
 	}
 
 	@Transactional(readOnly = true)
-	public Page<ProductDTO> findAll(Pageable pageable) {
-		return repository.findAll(pageable).map(x -> new ProductDTO(x));
+	public List<ProductDTO> findAll() {
+		return repository.findAll().stream().map(x -> new ProductDTO(x)).toList();
 	}
 
 	@Transactional(readOnly = true)

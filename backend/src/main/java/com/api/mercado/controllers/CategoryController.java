@@ -1,7 +1,7 @@
 package com.api.mercado.controllers;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,8 +36,8 @@ public class CategoryController {
 
     @Operation(summary = "Obter todas as categorias")
     @GetMapping
-    public ResponseEntity<Page<CategoryDTO>> findAll(Pageable pageable) {
-        return ResponseEntity.ok(service.findAll(pageable));
+    public ResponseEntity<List<CategoryDTO>> findAll() {
+        return ResponseEntity.ok(service.findAll());
     }
 
     @Operation(summary = "Obter categoria por id")
