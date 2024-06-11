@@ -18,6 +18,7 @@ import com.api.mercado.services.ProductService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Tag(name = "Produtos", description = "Agrupa endpoints para gerenciar produtos")
@@ -30,7 +31,7 @@ public class ProductController {
 
     @Operation(summary = "Criar produto")
     @PostMapping
-    public ResponseEntity<ProductDTO> create(@RequestBody ProductRequest productRequest) {
+    public ResponseEntity<ProductDTO> create(@RequestBody @Valid ProductRequest productRequest) {
         return ResponseEntity.ok().body(service.create(productRequest));
     }
 
@@ -48,7 +49,7 @@ public class ProductController {
 
     @Operation(summary = "Atualizar produto")
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDTO> updateCategory(@PathVariable Long id, @RequestBody ProductRequest productRequest) {
+    public ResponseEntity<ProductDTO> updateCategory(@PathVariable Long id, @RequestBody @Valid ProductRequest productRequest) {
         return ResponseEntity.ok(service.update(id, productRequest));
     }
 

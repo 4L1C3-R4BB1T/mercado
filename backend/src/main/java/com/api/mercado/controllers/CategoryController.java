@@ -18,6 +18,7 @@ import com.api.mercado.services.CategoryService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Tag(name = "Categorias", description = "Agrupa endpoints para gerenciar categorias")
@@ -30,7 +31,7 @@ public class CategoryController {
 
     @Operation(summary = "Criar categoria")
     @PostMapping
-    public ResponseEntity<CategoryDTO> create(@RequestBody CategoryRequest categoryRequest) {
+    public ResponseEntity<CategoryDTO> create(@RequestBody @Valid CategoryRequest categoryRequest) {
         return ResponseEntity.ok().body(service.create(categoryRequest));
     }
 
@@ -48,7 +49,7 @@ public class CategoryController {
 
     @Operation(summary = "Atualizar categoria")
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable Long id, @RequestBody CategoryRequest categoryRequest) {
+    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable Long id, @RequestBody @Valid CategoryRequest categoryRequest) {
         return ResponseEntity.ok(service.update(id, categoryRequest));
     }
 

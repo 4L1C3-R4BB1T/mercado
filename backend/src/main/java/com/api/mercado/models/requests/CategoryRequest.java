@@ -13,12 +13,12 @@ import lombok.Setter;
 @Schema(name = "Categoria", example = "{\"name\":\"Beleza & Cuidados Pessoais\",\"description\":\"Produtos de beleza e cuidados pessoais\"}")
 public class CategoryRequest {
 
-    @NotBlank(message = "Nome não pode estar em branco") 
+    @NotBlank(message = "Nome é obrigatório") 
     @Size(message = "O tamanho máximo para nome é de 255 caracteres", max = 255) 
     private String name;
 
-    @NotBlank(message = "Descrição não pode estar em branco") 
-    @Size(message = "O tamanho máximo para nome é de 255 caracteres", max = 255) 
+    @NotBlank(message = "Descrição é obrigatória") 
+    @Size(message = "O tamanho máximo para descrição é de 255 caracteres", max = 255) 
     private String description;
 
 }

@@ -17,12 +17,12 @@ import lombok.Setter;
 @Schema(name = "Produto", example = "{\"name\":\"Creme Hidratante\",\"description\":\"Creme hidratante para pele seca\",\"price\":19.99,\"stock\":200,\"categoryId\":6}")
 public class ProductRequest {
 
-    @NotBlank(message = "Nome não pode estar em branco") 
+    @NotBlank(message = "Nome é obrigatório") 
     @Size(message = "O tamanho máximo para nome é de 255 caracteres", max = 255) 
     private String name;
 
-    @NotBlank(message = "Descrição não pode estar em branco") 
-    @Size(message = "O tamanho máximo para nome é de 255 caracteres", max = 255) 
+    @NotBlank(message = "Descrição é obrigatória") 
+    @Size(message = "O tamanho máximo para descrição é de 255 caracteres", max = 255) 
     private String description;
                 
     @NotNull(message = "Preço não pode ser nulo") 
