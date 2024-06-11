@@ -11,7 +11,7 @@ import { CategoryService } from 'src/app/services/category.service';
 })
 export class CategoriesComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'description'];
+  displayedColumns: string[] = ['id', 'name', 'description', 'actions'];
   dataSource = new MatTableDataSource<Category>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

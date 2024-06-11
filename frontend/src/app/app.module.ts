@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { CategoriesComponent } from './pages/categories/categories.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ProductsComponent } from './pages/products/products.component';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ProductsComponent } from './pages/products/products.component';
     AppComponent,
     ProductsComponent,
     CategoriesComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,7 @@ import { ProductsComponent } from './pages/products/products.component';
     MatPaginatorModule,
     MatSortModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

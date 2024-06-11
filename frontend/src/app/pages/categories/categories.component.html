@@ -1,24 +1,56 @@
-<div class="p-5">
-  <mat-table class="border" [dataSource]="dataSource">
+<div class="flex">
+  <app-sidenav />
 
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
-    </ng-container>
+  <div class="mt-20 w-full mx-auto max-w-[80vw] shadow-xl bg-white border border-black border-opacity-10">
 
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-    </ng-container>
+    <span class="bg-green-600 flex justify-between items-center p-3">
+      <h2 class="pt-4 ps-4 rounded-md bg-brand-secondary text-white font-semibold !text-2xl">Categorias</h2>
+      <section class="flex gap-3 items-center">
+        <button fab-miniid="modalBtnClient" class="bg-green-900 text-white rounded-lg w-10 h-10 hover:bg-opacity-80">
+          <i class="bi bi-plus-circle-fill text-xl"></i>
+        </button>
+      </section>
+    </span>
 
-    <ng-container matColumnDef="description">
-      <mat-header-cell *matHeaderCellDef> Descrição </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
-    </ng-container>
+    <mat-table class="border" [dataSource]="dataSource">
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef class="font-semibold text-center text-[#5E6B8C]"> ID </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+      </ng-container>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef class="font-semibold text-center text-[#5E6B8C]"> Nome </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <mat-header-cell *matHeaderCellDef class="font-semibold text-center text-[#5E6B8C]"> Descrição
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef class="text-[#5E6B8C]"> Ações </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div class="flex items-center gap-4">
+            <button routerLink="update/{{element.id}}"
+              class="bg-orange-500 text-white rounded-lg w-8 h-8 hover:bg-opacity-80">
+              <i class="bi bi-pencil-fill text-lg"></i>
+            </button>
+            <button routerLink="delete/{{element.id}}"
+              class="bg-red-500 text-white rounded-lg w-8 h-8 hover:bg-opacity-80">
+              <i class="bi bi-trash3-fill text-lg"></i>
+            </button>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky true;"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons class="border-t py-4"></mat-paginator>
+
+  </div>
 </div>
