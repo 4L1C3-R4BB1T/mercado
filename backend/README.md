@@ -1,3 +1,7 @@
+🔙 [Voltar para o Início](https://github.com/4L1C3-R4BB1T/mercado "Voltar para o Início")
+
+---
+
 ## ⚙️ Como executar o projeto
 
 Clone esse repositório:
