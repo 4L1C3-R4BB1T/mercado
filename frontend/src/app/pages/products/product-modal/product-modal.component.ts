@@ -39,6 +39,8 @@ export class ProductModalComponent implements OnInit {
 
   categories: Category[] = [];
 
+  selected: string = '';
+
   constructor(
     private service: ProductService,
     private categoryService: CategoryService,
@@ -67,6 +69,7 @@ export class ProductModalComponent implements OnInit {
   findById(id: string): void {
     this.service.findById(id).subscribe(response => {
       this.product = response;
+      this.selected = this.product.category.id;
     });
   }
 
@@ -122,13 +125,6 @@ export class ProductModalComponent implements OnInit {
       stock: product.stock,
       categoryId: this.category.value
     };
-  }
-
-  onCategoryChange(categoryId: string): void {
-    const selectedCategory = this.categories.find(category => category.id === categoryId);
-    if (selectedCategory) {
-      this.product.category = selectedCategory;
-    }
   }
 
 }

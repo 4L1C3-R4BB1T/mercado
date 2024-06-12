@@ -29,13 +29,12 @@
     <div>
       <mat-form-field appearance="outline" floatLabel="auto" class="w-full">
         <mat-label>Categoria</mat-label>
-        <mat-select [(value)]="product.category.id" [(ngModel)]="product.category.id" name="category" [formControl]="category" required>
-          <mat-option *ngFor="let category of categories" value="{{ category.id }}">
+        <mat-select [(value)]="selected" [(ngModel)]="product.category.id" name="category" [formControl]="category" required>
+          <mat-option *ngFor="let category of categories" [value]="category.id">
             {{ category.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <div>{{product.category.id + " - " + product.category.name}}</div>
     </div>
     <button (click)="[option == 'Cadastrar' ? create() : update()]"
       class="bg-green-600 rounded-md w-full !h-12 mt-4 text-white text-lg font-medium hover:opacity-70">{{option}}</button>
