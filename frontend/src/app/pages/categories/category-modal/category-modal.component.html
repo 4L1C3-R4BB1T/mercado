@@ -1,0 +1,21 @@
+<div class="bg-black p-2 bg-opacity-60 absolute top-0 left-0 w-full h-full flex items-center justify-center">
+  <form class="max-w-[600px] rounded-md w-full bg-white p-8">
+      <header class="mb-4 flex justify-between">
+        <span class="text-xl opacity-70 font-medium">Categoria</span>
+        <button mat-button routerLink="/categories" class="bg-green-600 rounded-full w-10 h-10 hover:opacity-70">
+          <i class="bi bi-x text-4xl text-white"></i>
+        </button>
+      </header>
+      <div class="flex flex-col gap-2">
+        <mat-form-field appearance="outline" floatLabel="auto">
+          <mat-label>Nome</mat-label>
+          <input type="text" matInput [(ngModel)]="category.name" name="name" [formControl]="name">
+        </mat-form-field>
+        <mat-form-field appearance="outline" floatLabel="auto">
+          <mat-label>Descrição</mat-label>
+          <textarea matInput [(ngModel)]="category.description" name="description" [formControl]="description"></textarea>
+        </mat-form-field>
+      </div>
+    <button (click)="[option == 'Cadastrar' ? create() : update()]" class="bg-green-600 rounded-md w-full !h-12 mt-4 text-white text-lg font-medium hover:opacity-70">{{option}}</button>
+  </form>
+</div>
