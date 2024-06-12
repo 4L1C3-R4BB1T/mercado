@@ -28,14 +28,12 @@ Execute o projeto:
 ./gradlew bootRun
 ```
 
-Ou se preferir use extensões disponibilizadas pelas IDE's.
-
-
 Para acessar a documentação Swagger:
 
 ```bash
 http://localhost:8080/swagger-ui/index.html
 ```
+
 ---
 
 ## 🔗 API Endpoints
