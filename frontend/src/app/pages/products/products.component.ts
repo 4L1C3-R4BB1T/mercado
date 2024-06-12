@@ -44,6 +44,7 @@ export class ProductsComponent implements OnInit {
 
   findAll() {
     this.service.findAll().subscribe(response => {
+      response.sort((a, b) => parseInt(a.id) - parseInt(b.id));
       this.dataSource.data = response;
       this.dataSource.paginator = this.paginator;
     });

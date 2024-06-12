@@ -1,10 +1,13 @@
-<div class="flex">
+<div class="lg:flex">
   <app-sidenav />
 
-  <div class="mt-20 w-full mx-auto max-w-[80vw] shadow-xl bg-white border border-black border-opacity-10">
+  <div class="lg:mt-20 mb-12 mt-16 w-full mx-auto max-w-[80vw] shadow-xl bg-white border border-black border-opacity-10">
 
     <span class="bg-green-600 flex justify-between items-center p-3">
-      <h2 class="pt-4 ps-4 rounded-md bg-brand-secondary text-white font-semibold !text-2xl">Categorias</h2>
+      <h2 class="pt-4 ps-4 rounded-md bg-brand-secondary text-white font-semibold !text-2xl">
+        <i class="bi bi-tag-fill me-2"></i>
+        Categorias
+      </h2>
       <section class="flex gap-3 items-center">
         <button routerLink="/categories/create" class="bg-green-900 text-white rounded-lg w-10 h-10 hover:bg-opacity-80">
           <i class="bi bi-plus-circle-fill text-xl"></i>

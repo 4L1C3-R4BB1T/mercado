@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -10,7 +10,7 @@ import { CategoryService } from 'src/app/services/category.service';
   templateUrl: './category-modal.component.html',
   styleUrls: ['./category-modal.component.sass']
 })
-export class CategoryModalComponent {
+export class CategoryModalComponent implements OnInit{
 
   category: Category = { id: "", name: "", description: "" };
 
@@ -33,10 +33,13 @@ export class CategoryModalComponent {
     if (id) {
       this.option = "Atualizar";
       this.findById(id);
-      this.id.setValue(this.category.id);
-      this.name.setValue(this.category.name);
-      this.description.setValue(this.category.description);
     }
+  }
+
+  findById(id: string): void {
+    this.service.findById(id).subscribe(response => {
+      this.category = response;
+    });
   }
 
   create(): void {
@@ -55,12 +58,6 @@ export class CategoryModalComponent {
     });
   }
 
-  findById(id: string): void {
-    this.service.findById(id).subscribe(response => {
-      this.category = response;
-    })
-  }
-
   update(): void {
     this.service.update(this.category).subscribe(() => {
       this.toast.success('Categoria atualizada com sucesso!', 'Atualização');
@@ -73,7 +70,7 @@ export class CategoryModalComponent {
       } else {
         this.toast.error(ex.error.message);
       }
-    })
+    });
   }
 
   validate(): boolean {

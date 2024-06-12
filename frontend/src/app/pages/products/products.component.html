@@ -1,12 +1,15 @@
-<div class="flex">
+<div class="lg:flex">
   <app-sidenav />
 
-  <div class="mt-20 w-full mx-auto max-w-[80vw] shadow-xl bg-white border border-black border-opacity-10">
+  <div class="lg:mt-20 mt-16 w-full mx-auto max-w-[80vw] shadow-xl bg-white border border-black border-opacity-10">
 
     <span class="bg-green-600 flex justify-between items-center p-3">
-      <h2 class="pt-4 ps-4 rounded-md bg-brand-secondary text-white font-semibold !text-2xl">Produtos</h2>
+      <h2 class="pt-4 ps-4 rounded-md bg-brand-secondary text-white font-semibold !text-2xl">
+        <i class="bi bi-box-seam-fill me-2"></i>
+        Produtos
+      </h2>
       <section class="flex gap-3 items-center">
-        <button fab-miniid="modalBtnClient" class="bg-green-900 text-white rounded-lg w-10 h-10 hover:bg-opacity-80">
+        <button routerLink="/products/create" class="bg-green-900 text-white rounded-lg w-10 h-10 hover:bg-opacity-80">
           <i class="bi bi-plus-circle-fill text-xl"></i>
         </button>
       </section>
@@ -31,7 +34,7 @@
 
       <ng-container matColumnDef="price">
         <mat-header-cell *matHeaderCellDef class="font-semibold text-center text-[#5E6B8C]"> Preço </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{"R$ " + element.price.toFixed(2).toString().replace(".", ",") }} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="stock">
@@ -48,7 +51,7 @@
         <mat-header-cell *matHeaderCellDef class="text-[#5E6B8C]"> Ações </mat-header-cell>
         <mat-cell *matCellDef="let element">
           <div class="flex items-center gap-4">
-            <button routerLink="/categories/update/{{element.id}}" class="bg-orange-500 text-white rounded-lg w-8 h-8 hover:bg-opacity-80">
+            <button routerLink="/products/update/{{element.id}}" class="bg-orange-500 text-white rounded-lg w-8 h-8 hover:bg-opacity-80">
               <i class="bi bi-pencil-fill text-lg"></i>
             </button>
             <button (click)="delete(element.id)" class="bg-red-500 text-white rounded-lg w-8 h-8 hover:bg-opacity-80">
@@ -58,7 +61,7 @@
         </mat-cell>
       </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns; sticky true;"></mat-header-row>
+      <mat-header-row *matHeaderRowDef="displayedColumns;"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
 

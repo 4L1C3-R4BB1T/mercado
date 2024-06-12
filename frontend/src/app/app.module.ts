@@ -10,14 +10,16 @@ import { MatTableModule } from '@angular/material/table';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { CategoriesComponent } from './pages/categories/categories.component';
 import { CategoryModalComponent } from './pages/categories/category-modal/category-modal.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { ProductModalComponent } from './pages/products/product-modal/product-modal.component';
 import { ProductsComponent } from './pages/products/products.component';
-import { ToastrModule } from 'ngx-toastr';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -27,7 +29,8 @@ import { ToastrModule } from 'ngx-toastr';
     CategoriesComponent,
     NotFoundComponent,
     SidenavComponent,
-    CategoryModalComponent
+    CategoryModalComponent,
+    ProductModalComponent
   ],
   imports: [
     AppRoutingModule,
@@ -41,6 +44,7 @@ import { ToastrModule } from 'ngx-toastr';
     MatMenuModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSelectModule,
     MatSortModule,
     ToastrModule.forRoot({
       timeOut: 3000,
