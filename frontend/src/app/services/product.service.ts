@@ -19,7 +19,7 @@ export class ProductService {
     return this.http.get<Product[]>(`${API_CONFIG.baseUrl}/products`).pipe(first());
   }
 
-  findById(id: number): Observable<Product> {
+  findById(id: string): Observable<Product> {
     return this.http.get<Product>(`${API_CONFIG.baseUrl}/products/${id}`);
   }
 
@@ -27,7 +27,7 @@ export class ProductService {
     return this.http.put<Product>(`${API_CONFIG.baseUrl}/products/${product.id}`, product);
   }
 
-  delete(id: number): Observable<Product> {
+  delete(id: string): Observable<Product> {
     return this.http.delete<Product>(`${API_CONFIG.baseUrl}/products/${id}`);
   }
 
