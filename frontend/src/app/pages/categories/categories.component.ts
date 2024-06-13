@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NavigationEnd, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { ConfirmDialogComponent } from 'src/app/components/confirm-dialog/confirm-dialog.component';
 import { Category } from 'src/app/models/category';
 import { CategoryService } from 'src/app/services/category.service';
 
@@ -24,7 +26,8 @@ export class CategoriesComponent implements OnInit {
   constructor(
     private service: CategoryService,
     private toast: ToastrService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -64,6 +67,13 @@ export class CategoriesComponent implements OnInit {
         this.toast.error(ex.error.message);
       }
     })
+  }
+
+  openDialog(id: string): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, { width: '350px', height: '160px', data: { id } });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) this.delete(id);
+    });
   }
 
 }

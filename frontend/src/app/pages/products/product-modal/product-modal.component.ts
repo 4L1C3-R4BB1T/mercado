@@ -1,12 +1,12 @@
-import { Category } from 'src/app/models/category';
-import { Product } from 'src/app/models/product';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { ProductService } from 'src/app/services/product.service';
-import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CategoryService } from 'src/app/services/category.service';
+import { ToastrService } from 'ngx-toastr';
+import { Category } from 'src/app/models/category';
+import { Product } from 'src/app/models/product';
 import { ProductRequest } from 'src/app/models/productRequest';
+import { CategoryService } from 'src/app/services/category.service';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-product-modal',
@@ -92,6 +92,7 @@ export class ProductModalComponent implements OnInit {
 
   update(): void {
     const productRequest = this.transformProduct(this.product);
+    if (!this.validate()) return;
     this.service.update(productRequest).subscribe(() => {
       this.toast.success('Produto atualizado com sucesso!', 'Atualização');
       this.router.navigate(['products']);
@@ -107,16 +108,19 @@ export class ProductModalComponent implements OnInit {
   }
 
   validate(): boolean {
-    if (!(this.name.valid && this.description.valid
-      && this.price.valid && this.stock.valid && this.category.valid)) {
-      this.toast.error("Preencha todos os campos!");
-      return false;
+    if (this.name.valid && this.description.valid
+      && this.price.valid && this.stock.valid && this.category.valid) {
+      return true;
     }
-    return true;
+    if (!this.name.valid) this.toast.error("Nome inválido!")
+    if (!this.description.valid) this.toast.error("Descrição inválida!")
+    if (!this.price.valid) this.toast.error("Preço inválido!");
+    if (!this.stock.valid) this.toast.error("Estoque inválido!");
+    if (!this.category.valid) this.toast.error("Categoria inválida!");
+    return false;
   }
 
   transformProduct(product: Product): ProductRequest {
-    console.log("product", product)
     return {
       id: product.id,
       name: product.name,

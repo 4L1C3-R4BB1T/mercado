@@ -10,16 +10,19 @@ import { MatTableModule } from '@angular/material/table';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { CategoriesComponent } from './pages/categories/categories.component';
 import { CategoryModalComponent } from './pages/categories/category-modal/category-modal.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ProductModalComponent } from './pages/products/product-modal/product-modal.component';
 import { ProductsComponent } from './pages/products/products.component';
-import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -30,7 +33,8 @@ import { MatSelectModule } from '@angular/material/select';
     NotFoundComponent,
     SidenavComponent,
     CategoryModalComponent,
-    ProductModalComponent
+    ProductModalComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     AppRoutingModule,
@@ -39,6 +43,8 @@ import { MatSelectModule } from '@angular/material/select';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    MatButtonModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     MatMenuModule,

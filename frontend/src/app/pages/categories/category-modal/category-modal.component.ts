@@ -10,7 +10,7 @@ import { CategoryService } from 'src/app/services/category.service';
   templateUrl: './category-modal.component.html',
   styleUrls: ['./category-modal.component.sass']
 })
-export class CategoryModalComponent implements OnInit{
+export class CategoryModalComponent implements OnInit {
 
   category: Category = { id: "", name: "", description: "" };
 
@@ -59,6 +59,7 @@ export class CategoryModalComponent implements OnInit{
   }
 
   update(): void {
+    if (!this.validate()) return;
     this.service.update(this.category).subscribe(() => {
       this.toast.success('Categoria atualizada com sucesso!', 'Atualização');
       this.router.navigate(['categories']);
@@ -74,11 +75,10 @@ export class CategoryModalComponent implements OnInit{
   }
 
   validate(): boolean {
-    if (!(this.name.valid && this.description.valid)) {
-      this.toast.error("Preencha todos os campos!");
-      return false;
-    }
-    return true;
+    if (this.name.valid && this.description.valid) return true;
+    if (!this.name.valid) this.toast.error("Nome inválido!")
+    if (!this.description.valid) this.toast.error("Descrição inválida!")
+    return false;
   }
 
 }

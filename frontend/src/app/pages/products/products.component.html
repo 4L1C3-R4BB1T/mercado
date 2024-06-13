@@ -54,7 +54,7 @@
             <button routerLink="/products/update/{{element.id}}" class="bg-orange-500 text-white rounded-lg w-8 h-8 hover:bg-opacity-80">
               <i class="bi bi-pencil-fill text-lg"></i>
             </button>
-            <button (click)="delete(element.id)" class="bg-red-500 text-white rounded-lg w-8 h-8 hover:bg-opacity-80">
+            <button (click)="openDialog(element.id)" class="bg-red-500 text-white rounded-lg w-8 h-8 hover:bg-opacity-80">
               <i class="bi bi-trash3-fill text-lg"></i>
             </button>
           </div>
