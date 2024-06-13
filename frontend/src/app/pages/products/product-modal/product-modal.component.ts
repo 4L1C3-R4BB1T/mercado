@@ -29,8 +29,8 @@ export class ProductModalComponent implements OnInit {
   };
 
   id: FormControl = new FormControl(null);
-  name: FormControl = new FormControl(null, Validators.required);
-  description: FormControl = new FormControl(null, Validators.required);
+  name: FormControl = new FormControl(null, [Validators.required, Validators.pattern(/^(?!\s*$).+/)]);
+  description: FormControl = new FormControl(null, [Validators.required, Validators.pattern(/^(?!\s*$).+/)]);
   price: FormControl = new FormControl(null, [Validators.required, Validators.min(0)]);
   stock: FormControl = new FormControl(null, [Validators.required, Validators.min(0)]);
   category: FormControl = new FormControl(null, Validators.required);

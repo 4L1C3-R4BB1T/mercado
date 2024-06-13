@@ -15,8 +15,8 @@ export class CategoryModalComponent implements OnInit {
   category: Category = { id: "", name: "", description: "" };
 
   id: FormControl = new FormControl(null);
-  name: FormControl = new FormControl(null, Validators.required);
-  description: FormControl = new FormControl(null, Validators.required);
+  name: FormControl = new FormControl(null, [Validators.required, Validators.pattern(/^(?!\s*$).+/)]);
+  description: FormControl = new FormControl(null, [Validators.required, Validators.pattern(/^(?!\s*$).+/)]);
 
   option = "Cadastrar";
 
