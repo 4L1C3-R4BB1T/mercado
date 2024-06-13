@@ -66,6 +66,4 @@ npm start
 
 * Excluir
 
-![Atualizar Categoria](https://github.com/4L1C3-R4BB1T/mercado/blob/main/_assets/excluir-categoria.png)
-
 ![Excluir Categoria](https://github.com/4L1C3-R4BB1T/mercado/blob/main/_assets/excluir-categoria.png)
