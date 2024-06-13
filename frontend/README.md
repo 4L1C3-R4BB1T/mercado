@@ -27,3 +27,45 @@ Execute o projeto:
 ```bash
 npm start
 ```
+
+---
+
+### 🏷️ Categorias
+
+* Listar
+
+![Listar Produtos](https://github.com/4L1C3-R4BB1T/mercado/blob/main/_assets/listar-produtos.png)
+
+* Adicionar
+
+![Adicionar Produto](https://github.com/4L1C3-R4BB1T/mercado/blob/main/_assets/adicionar-produto.png)
+
+* Atualizar
+
+![Atualizar Produto](https://github.com/4L1C3-R4BB1T/mercado/blob/main/_assets/atualizar-produto.png)
+
+* Excluir
+
+![Excluir Produto](https://github.com/4L1C3-R4BB1T/mercado/blob/main/_assets/excluir-produto.png)
+
+---
+
+### 📦 Produtos
+
+* Listar
+
+![Listar Categorias](https://github.com/4L1C3-R4BB1T/mercado/blob/main/_assets/listar-categorias.png)
+
+* Adicionar
+
+![Adicionar Categoria](https://github.com/4L1C3-R4BB1T/mercado/blob/main/_assets/adicionar-categoria.png)
+
+* Atualizar
+
+![Atualizar Categoria](https://github.com/4L1C3-R4BB1T/mercado/blob/main/_assets/atualizar-categoria.png)
+
+* Excluir
+
+![Atualizar Categoria](https://github.com/4L1C3-R4BB1T/mercado/blob/main/_assets/excluir-categoria.png)
+
+![Excluir Categoria](https://github.com/4L1C3-R4BB1T/mercado/blob/main/_assets/excluir-categoria.png)
