@@ -23,6 +23,8 @@ import { CategoryModalComponent } from './pages/categories/category-modal/catego
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ProductModalComponent } from './pages/products/product-modal/product-modal.component';
 import { ProductsComponent } from './pages/products/products.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -34,7 +36,9 @@ import { ProductsComponent } from './pages/products/products.component';
     SidenavComponent,
     CategoryModalComponent,
     ProductModalComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     AppRoutingModule,

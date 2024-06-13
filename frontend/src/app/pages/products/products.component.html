@@ -1,7 +1,7 @@
 <div class="lg:flex">
   <app-sidenav />
 
-  <div class="lg:mt-20 mt-16 w-full mx-auto max-w-[80vw] shadow-xl bg-white border border-black border-opacity-10">
+  <div class="lg:mt-10 mb-12 mt-16 w-full mx-auto max-w-[80vw] shadow-xl bg-white border border-black border-opacity-10">
 
     <span class="bg-green-600 flex justify-between items-center p-3">
       <h2 class="pt-4 ps-4 rounded-md bg-brand-secondary text-white font-semibold !text-2xl">
@@ -65,7 +65,7 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons class="border-t py-4"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons class="border-t py-2"></mat-paginator>
 
   </div>
 </div>
