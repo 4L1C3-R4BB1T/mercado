@@ -9,12 +9,12 @@
     <div class="flex flex-col gap-2">
       <mat-form-field appearance="outline" floatLabel="auto" data-testId="name">
         <mat-label>Nome</mat-label>
-        <input type="text" matInput name="name" formControlName="name" required>
+        <input type="text" matInput name="name" formControlName="name">
         <mat-error *ngIf="form.controls.name.invalid">O campo é obrigatório</mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline" floatLabel="auto" data-testId="description">
         <mat-label>Descrição</mat-label>
-        <textarea matInput name="description" formControlName="description" required></textarea>
+        <textarea matInput name="description" formControlName="description"></textarea>
         <mat-error *ngIf="form.controls.description.invalid">O campo é obrigatório</mat-error>
       </mat-form-field>
     </div>
