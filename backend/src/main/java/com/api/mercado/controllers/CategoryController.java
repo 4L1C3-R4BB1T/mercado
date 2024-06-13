@@ -11,12 +11,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.api.mercado.models.CategoryDTO;
 import com.api.mercado.models.requests.CategoryRequest;
 import com.api.mercado.services.CategoryService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,9 +34,13 @@ public class CategoryController {
     private final CategoryService service;
 
     @Operation(summary = "Criar categoria")
+    @ApiResponse(description = "Retorna uma categoria criada", content = @Content(schema = @Schema(exampleClasses = CategoryDTO.class)))
     @PostMapping
     public ResponseEntity<CategoryDTO> create(@RequestBody @Valid CategoryRequest categoryRequest) {
-        return ResponseEntity.ok().body(service.create(categoryRequest));
+        final var created = service.create(categoryRequest);
+        final var uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/{id}")
+                .buildAndExpand(created.getId()).toUri();
+        return ResponseEntity.created(uri).body(created);
     }
 
     @Operation(summary = "Obter todas as categorias")

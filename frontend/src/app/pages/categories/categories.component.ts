@@ -60,11 +60,11 @@ export class CategoriesComponent implements OnInit {
       this.router.navigate(['categories']);
     }, ex => {
       if (ex.error.errors) {
-        ex.error.errors.forEach((element: { message: string | undefined; }) => {
-          this.toast.error(element.message);
+        ex.error.errors.forEach((element: any) => {
+          this.toast.error(element);
         });
       } else {
-        this.toast.error(ex.error.message);
+        this.toast.error(ex.error);
       }
     })
   }

@@ -77,10 +77,10 @@ public class ProductServiceTest {
         var expectedId = 1l;
         var expectedName = "Monitor Modificado";
         var expectedDescription = "Monitor 27 polegadas";
-        
+
         Product clone = (Product) product.clone();
         clone.setName(expectedName);
-        
+
         ProductRequest request = new ProductRequest(
                 expectedName, clone.getDescription(), clone.getPrice(), clone.getStock(), 1L);
 
@@ -99,42 +99,31 @@ public class ProductServiceTest {
     @Test
     void testGivenInvalidProductRequest_WhenCallsUpdate_ThenShouldBeThrowAnRuntimeException() {
         var expectedMessageError = "Categoria com id 1 não encontrada.";
-
         when(categoryRepository.findById(1L)).thenReturn(Optional.empty());
-
         var exception = assertThrows(RuntimeException.class, () -> productService.create(request));
-
         assertEquals(expectedMessageError, exception.getMessage());
     }
 
     @Test
     void testGivenInvalidProductIdRequest_WhenCallsUpdate_ThenShouldBeThrowAnRuntimeException() {
         var expectedMessageError = "Produto com id 1 não encontrado.";
-
         when(productRepository.findById(1L)).thenReturn(Optional.empty());
-
         var exception = assertThrows(RuntimeException.class, () -> productService.delete(1L));
-
         assertEquals(expectedMessageError, exception.getMessage());
     }
 
     @Test
     void testGivenAnValidId_WhenCallsDelete_ThenReturnVoid() {
         when(productRepository.findById(anyLong())).thenReturn(Optional.of(product));
-
         productService.delete(1L);
-
         verify(productRepository, times(1)).deleteById(anyLong());
     }
 
     @Test
     void testGivenAnInvalidId_WhenCallsDelete_ThenShouldBeThrowAnRuntimeException() {
         var expectedMessageError = "Produto com id 1 não encontrado.";
-
         when(productRepository.findById(1L)).thenReturn(Optional.empty());
-
         var exception = assertThrows(RuntimeException.class, () -> productService.delete(1L));
-
         assertEquals(expectedMessageError, exception.getMessage());
     }
 

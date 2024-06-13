@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, first } from 'rxjs';
-import { API_CONFIG } from '../config/api.config';
+import { environment } from 'src/environments/environment.development';
 import { Category } from '../models/category';
 
 @Injectable({
@@ -12,23 +12,23 @@ export class CategoryService {
   constructor(private http: HttpClient) { }
 
   create(category: Category): Observable<Category> {
-    return this.http.post<Category>(`${API_CONFIG.baseUrl}/categories`, category);
+    return this.http.post<Category>(`${environment.apiUrl}/categories`, category);
   }
 
   findAll(): Observable<Category[]> {
-    return this.http.get<Category[]>(`${API_CONFIG.baseUrl}/categories`).pipe(first());
+    return this.http.get<Category[]>(`${environment.apiUrl}/categories`).pipe(first());
   }
 
   findById(id: string): Observable<Category> {
-    return this.http.get<Category>(`${API_CONFIG.baseUrl}/categories/${id}`);
+    return this.http.get<Category>(`${environment.apiUrl}/categories/${id}`);
   }
 
   update(category: Category): Observable<Category> {
-    return this.http.put<Category>(`${API_CONFIG.baseUrl}/categories/${category.id}`, category);
+    return this.http.put<Category>(`${environment.apiUrl}/categories/${category.id}`, category);
   }
 
   delete(id: string): Observable<Category> {
-    return this.http.delete<Category>(`${API_CONFIG.baseUrl}/categories/${id}`);
+    return this.http.delete<Category>(`${environment.apiUrl}/categories/${id}`);
   }
 
 }

@@ -1,5 +1,5 @@
 <div class="bg-black p-2 bg-opacity-60 absolute top-0 left-0 w-full h-full z-10 flex items-center justify-center">
-  <form class="max-w-[600px] rounded-md w-full bg-white p-8">
+  <form [formGroup]="form" class="max-w-[600px] rounded-md w-full bg-white p-8 animate-slide-in">
     <header class="mb-4 flex justify-between">
       <span class="text-xl opacity-70 font-medium">Produto</span>
       <button routerLink="/products" class="bg-green-600 rounded-full w-10 h-10 mb-2 hover:opacity-70">
@@ -7,33 +7,48 @@
       </button>
     </header>
     <div class="flex flex-col gap-2">
-      <mat-form-field appearance="outline" floatLabel="auto">
+      <mat-form-field appearance="outline" floatLabel="auto" data-testId="name">
         <mat-label>Nome</mat-label>
-        <input type="text" matInput [(ngModel)]="product.name" name="name" [formControl]="name">
+        <input type="text" matInput name="name" formControlName="name">
+        <mat-error *ngIf="getMessageError(form.controls.name)">
+          {{ getMessageError(form.controls.name) }}
+        </mat-error>
       </mat-form-field>
-      <mat-form-field appearance="outline" floatLabel="auto">
+      <mat-form-field appearance="outline" floatLabel="auto" data-testId="description">
         <mat-label>Descrição</mat-label>
-        <textarea matInput [(ngModel)]="product.description" name="description" [formControl]="description"></textarea>
+        <textarea matInput name="description" formControlName="description"></textarea>
+        <mat-error *ngIf="getMessageError(form.controls.description)">
+          {{ getMessageError(form.controls.description) }}
+        </mat-error>
       </mat-form-field>
     </div>
-    <div class="flex gap-6">
-      <mat-form-field appearance="outline" floatLabel="auto" class="w-full">
+    <div class="flex gap-6 my-2">
+      <mat-form-field appearance="outline" floatLabel="auto" class="w-full" data-testId="price">
         <mat-label>Preço</mat-label>
-        <input type="number" matInput [(ngModel)]="product.price" name="price" [formControl]="price">
+        <input type="number" matInput name="price" formControlName="price">
+        <mat-error *ngIf="getMessageError(form.controls.price)">
+          {{ getMessageError(form.controls.price) }}
+        </mat-error>
       </mat-form-field>
-      <mat-form-field appearance="outline" floatLabel="auto" class="w-full">
+      <mat-form-field appearance="outline" floatLabel="auto" class="w-full" data-testId="stock">
         <mat-label>Estoque</mat-label>
-        <input type="number" matInput [(ngModel)]="product.stock" name="stock" [formControl]="stock">
+        <input type="number" matInput name="stock" formControlName="stock">
+        <mat-error *ngIf="getMessageError(form.controls.stock)">
+          {{ getMessageError(form.controls.stock) }}
+        </mat-error>
       </mat-form-field>
     </div>
     <div>
-      <mat-form-field appearance="outline" floatLabel="auto" class="w-full">
+      <mat-form-field appearance="outline" floatLabel="auto" class="w-full" data-testId="category">
         <mat-label>Categoria</mat-label>
-        <mat-select [(value)]="selected" [(ngModel)]="product.category.id" name="category" [formControl]="category" required>
-          <mat-option *ngFor="let category of categories" [value]="category.id">
+        <mat-select name="category" [compareWith]="compareWithId" formControlName="category">
+          <mat-option *ngFor="let category of categories" [value]="category">
             {{ category.name }}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="getMessageError(form.controls.category)">
+          {{ getMessageError(form.controls.category) }}
+        </mat-error>
       </mat-form-field>
     </div>
     <button (click)="[option == 'Cadastrar' ? create() : update()]"

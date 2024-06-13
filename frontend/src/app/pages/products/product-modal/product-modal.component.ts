@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Category } from 'src/app/models/category';
@@ -15,31 +15,22 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductModalComponent implements OnInit {
 
-  product: Product = {
-    id: "",
-    name: "",
-    description: "",
-    price: 0,
-    stock: 0,
-    category: {
-      id: "",
-      name: "",
-      description: ""
-    }
-  };
-
-  id: FormControl = new FormControl(null);
-  name: FormControl = new FormControl(null, [Validators.required, Validators.pattern(/^(?!\s*$).+/)]);
-  description: FormControl = new FormControl(null, [Validators.required, Validators.pattern(/^(?!\s*$).+/)]);
-  price: FormControl = new FormControl(null, [Validators.required, Validators.min(0)]);
-  stock: FormControl = new FormControl(null, [Validators.required, Validators.min(0)]);
-  category: FormControl = new FormControl(null, Validators.required);
+  form = new FormGroup({
+    id: new FormControl(''),
+    name: new FormControl('', [Validators.required, Validators.pattern(/^(?!\s*$).+/)]),
+    description: new FormControl('', [Validators.required, Validators.pattern(/^(?!\s*$).+/)]),
+    price: new FormControl(0, [Validators.required, Validators.min(0)]),
+    stock: new FormControl(0, [Validators.required, Validators.min(0)]),
+    category: new FormControl({} as Category, Validators.required),
+  })
 
   option = "Cadastrar";
 
   categories: Category[] = [];
 
-  selected: string = '';
+  stopSelection = false;
+
+  productRecovered!: Product;
 
   constructor(
     private service: ProductService,
@@ -57,7 +48,18 @@ export class ProductModalComponent implements OnInit {
     if (id) {
       this.option = "Atualizar";
       this.findById(id);
+      this.stopSelection = true;
     }
+  }
+
+  getMessageError(control: FormControl) {
+    if (control.hasError('required') || control.hasError('pattern')) {
+      return 'O campo é obrigatório';
+    }
+    if (control.hasError('min')) {
+      return 'O campo não pode ser menor que zero';
+    }
+    return '';
   }
 
   findAllCategories(): void {
@@ -68,67 +70,55 @@ export class ProductModalComponent implements OnInit {
 
   findById(id: string): void {
     this.service.findById(id).subscribe(response => {
-      this.product = response;
-      this.selected = this.product.category.id;
+      this.form.patchValue(response);
+      this.productRecovered = { ...response };
     });
   }
 
+  selectCategory(category: Category) {
+    if (this.stopSelection) {
+      this.stopSelection = false;
+      return;
+    }
+    this.form.controls.category.patchValue(category);
+  }
+
+  compareWithId(c1: Category, c2: Category) {
+    return c1.id === c2.id;
+  }
+
   create(): void {
-    const productRequest = this.transformProduct(this.product);
-    if (!this.validate()) return;
-    this.service.create(productRequest).subscribe(() => {
+    if (this.form.invalid) return;
+    const payload = { ...this.form.value, categoryId: this.form.value.category!.id };
+    this.service.create(payload as ProductRequest).subscribe(() => {
       this.toast.success("Produto cadastrado com sucesso!", "Cadastro");
       this.router.navigate(["products"]);
     }, (ex) => {
       if (ex.error.errors) {
-        ex.error.errors.forEach((element: { message: string | undefined; }) => {
-          this.toast.error(element.message)
+        ex.error.errors.forEach((element: any) => {
+          this.toast.error(element);
         });
       } else {
-        this.toast.error(ex.error.message);
+        this.toast.error(ex.error);
       }
     });
   }
 
   update(): void {
-    const productRequest = this.transformProduct(this.product);
-    if (!this.validate()) return;
-    this.service.update(productRequest).subscribe(() => {
+    if (this.form.invalid) return;
+    const payload = { ...this.form.value, categoryId: this.form.value.category!.id };
+    this.service.update(payload as ProductRequest).subscribe(() => {
       this.toast.success('Produto atualizado com sucesso!', 'Atualização');
       this.router.navigate(['products']);
     }, ex => {
       if (ex.error.errors) {
-        ex.error.errors.forEach((element: { message: string | undefined; }) => {
-          this.toast.error(element.message);
+        ex.error.errors.forEach((element: any) => {
+          this.toast.error(element);
         });
       } else {
-        this.toast.error(ex.error.message);
+        this.toast.error(ex.error);
       }
     });
-  }
-
-  validate(): boolean {
-    if (this.name.valid && this.description.valid
-      && this.price.valid && this.stock.valid && this.category.valid) {
-      return true;
-    }
-    if (!this.name.valid) this.toast.error("Nome inválido!")
-    if (!this.description.valid) this.toast.error("Descrição inválida!")
-    if (!this.price.valid) this.toast.error("Preço inválido!");
-    if (!this.stock.valid) this.toast.error("Estoque inválido!");
-    if (!this.category.valid) this.toast.error("Categoria inválida!");
-    return false;
-  }
-
-  transformProduct(product: Product): ProductRequest {
-    return {
-      id: product.id,
-      name: product.name,
-      description: product.description,
-      price: product.price,
-      stock: product.stock,
-      categoryId: this.category.value
-    };
   }
 
 }

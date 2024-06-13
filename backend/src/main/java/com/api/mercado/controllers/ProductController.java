@@ -11,12 +11,16 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.api.mercado.models.ProductDTO;
 import com.api.mercado.models.requests.ProductRequest;
 import com.api.mercado.services.ProductService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -30,9 +34,13 @@ public class ProductController {
     private final ProductService service;
 
     @Operation(summary = "Criar produto")
+    @ApiResponse(description = "Retorna um produto criado", content = @Content(schema = @Schema(exampleClasses = ProductDTO.class)))
     @PostMapping
     public ResponseEntity<ProductDTO> create(@RequestBody @Valid ProductRequest productRequest) {
-        return ResponseEntity.ok().body(service.create(productRequest));
+        final var created = service.create(productRequest);
+        final var uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/{id}")
+                .buildAndExpand(created.getId()).toUri();
+        return ResponseEntity.created(uri).body(created);
     }
 
     @Operation(summary = "Obter todos os produtos")

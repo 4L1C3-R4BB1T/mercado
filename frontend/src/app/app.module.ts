@@ -17,15 +17,14 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HeaderComponent } from './components/header/header.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { CategoriesComponent } from './pages/categories/categories.component';
 import { CategoryModalComponent } from './pages/categories/category-modal/category-modal.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ProductModalComponent } from './pages/products/product-modal/product-modal.component';
 import { ProductsComponent } from './pages/products/products.component';
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
-
 
 @NgModule({
   declarations: [

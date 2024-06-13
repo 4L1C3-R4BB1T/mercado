@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @Schema(name = "Produto", example = "{\"name\":\"Creme Hidratante\",\"description\":\"Creme hidratante para pele seca\",\"price\":19.99,\"stock\":200,\"categoryId\":6}")
-public class ProductRequest {
+public class ProductRequest implements Cloneable {
 
     @NotBlank(message = "Nome é obrigatório") 
     @Size(message = "O tamanho máximo para nome é de 255 caracteres", max = 255) 
@@ -35,5 +35,14 @@ public class ProductRequest {
 
     @NotNull(message = "Categoria é obrigatória") 
     private Long categoryId;
+
+    @Override 
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (Exception exception) {
+            return null;
+        }
+    }
 
 }

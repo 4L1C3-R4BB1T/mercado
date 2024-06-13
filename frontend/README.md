@@ -28,6 +28,12 @@ Execute o projeto:
 npm start
 ```
 
+Para executar os testes:
+
+```bash
+npx cypress open 
+```
+
 ---
 
 ### 🏷️ Categorias

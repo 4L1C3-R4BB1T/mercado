@@ -9,6 +9,7 @@ import com.api.mercado.entities.Category;
 import com.api.mercado.models.CategoryDTO;
 import com.api.mercado.models.requests.CategoryRequest;
 import com.api.mercado.repositories.CategoryRepository;
+import com.api.mercado.repositories.ProductRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 public class CategoryService {
 
 	private final CategoryRepository repository;
+	private final ProductRepository productRepository;
 
 	@Transactional
 	public CategoryDTO create(CategoryRequest categoryRequest) {
@@ -54,6 +56,9 @@ public class CategoryService {
 	public void delete(Long id) {
 		if (categoryNotExists(id)) {
 			throw new RuntimeException("Categoria com id " + id + " não encontrada.");
+		}
+		if (!productRepository.findByCategory(repository.findById(id).get()).isEmpty()) {
+			throw new RuntimeException("Não é permitido deletar categoria que está associada a um produto.");
 		}
 		repository.deleteById(id);
 	}
