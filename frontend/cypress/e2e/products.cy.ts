@@ -57,7 +57,7 @@ describe('ProductsComponent', () => {
       statusCode: 200,
     }).as('intercepted');
     cy.wait(300);
-    cy.get(selectors.model.name).should('not.have.value', 'some value');
+    cy.get(selectors.model.name).should('not.have.value', '');
     cy.get(selectors.model.description).should('not.have.value', '');
     cy.get(selectors.model.price).should('not.have.value', '');
     cy.get(selectors.model.stock).should('not.have.value', '');

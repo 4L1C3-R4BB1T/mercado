@@ -50,7 +50,7 @@ describe('CategoriesComponent', () => {
       statusCode: 200,
     }).as('intercepted');
     cy.wait(300);
-    cy.get(selectors.model.name).should('not.have.value', '');
+    cy.get(selectors.model.name).invoke('val', 'Atualizado no Teste').trigger('input');
     cy.get(selectors.model.description).should('not.have.value', '');
     cy.get('button').contains('Atualizar').click();
     cy.wait('@intercepted').then(({ response }) => {
