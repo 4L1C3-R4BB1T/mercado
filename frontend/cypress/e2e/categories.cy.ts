@@ -37,7 +37,7 @@ describe('CategoriesComponent', () => {
       statusCode: 201,
     }).as('intercepted');
     cy.get(selectors.model.name).invoke('val', 'Criado no Teste').trigger('input');
-    cy.get(selectors.model.description).invoke('val', 'Criado no Teste Descrição').trigger('input');
+    cy.get(selectors.model.description).invoke('val', 'Criado no Teste').trigger('input');
     cy.get('button').contains('Cadastrar').click();
     cy.wait('@intercepted').then(({ response }) => {
       expect(response?.statusCode).to.be.equal(201);

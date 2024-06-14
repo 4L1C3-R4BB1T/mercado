@@ -40,7 +40,7 @@ describe('ProductsComponent', () => {
       statusCode: 201,
     }).as('intercepted');
     cy.get(selectors.model.name).invoke('val', 'Criado no Teste').trigger('input');
-    cy.get(selectors.model.description).invoke('val', 'Criado no Teste Descrição').trigger('input');
+    cy.get(selectors.model.description).invoke('val', 'Criado no Teste').trigger('input');
     cy.get(selectors.model.price).invoke('val', 1500).trigger('input');
     cy.get(selectors.model.stock).invoke('val', 10).trigger('input');
     cy.get(selectors.model.category).click();

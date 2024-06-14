@@ -38,8 +38,8 @@ public class ProductServiceTest {
     @InjectMocks
     private ProductService productService;
 
-    ProductRequest request;
     Product product;
+    ProductRequest request;
     Category category;
 
     @BeforeEach

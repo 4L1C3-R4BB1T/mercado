@@ -40,7 +40,6 @@ public class CategoryServiceTest {
     private CategoryService categoryService;
 
     private Category category;
-
     private CategoryRequest categoryRequest;
 
     @BeforeEach

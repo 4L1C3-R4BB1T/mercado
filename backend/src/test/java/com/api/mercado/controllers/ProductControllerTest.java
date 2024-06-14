@@ -36,11 +36,9 @@ public class ProductControllerTest {
         @MockBean
         private ProductService productService;
 
-        ProductRequest request;
-
-        Category category;
-
         Product product;
+        ProductRequest request;
+        Category category;
 
         @BeforeEach
         void setup() {
@@ -53,49 +51,6 @@ public class ProductControllerTest {
                 category.setDescription("Produto que estraga rápido");
 
                 product = new Product(1L, "Monitor", "Monitor 27 polegadas", BigDecimal.valueOf(760.0), 10, category);
-        }
-
-        @Test
-        void givenValidProductId_whenCallsFindById_thenShouldReturnGotProductDTO() throws Exception {
-                final var expectedId = 1l;
-                final var productDto = new ProductDTO(product);
-                when(productService.findById(anyLong())).thenReturn(productDto);
-
-                final var response = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/products/{id}", expectedId));
-
-                response.andExpect(MockMvcResultMatchers.status().isOk())
-                                .andDo(MockMvcResultHandlers.print())
-                                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(expectedId))
-                                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(productDto.getName()))
-                                .andExpect(MockMvcResultMatchers.jsonPath("$.price").value(productDto.getPrice()))
-                                .andExpect(MockMvcResultMatchers.jsonPath("$.stock").value(productDto.getStock()))
-                                .andExpect(MockMvcResultMatchers.jsonPath("$.category.id").value(category.getId()))
-                                .andExpect(MockMvcResultMatchers.jsonPath("$.category.name").value(category.getName()))
-                                .andExpect(MockMvcResultMatchers.jsonPath("$.category.description")
-                                                .value(category.getDescription()));
-        }
-
-        @Test
-        void givenValidProductId_whenCallsUpdate_thenShouldReturnProductDTO() throws Exception {
-                final var expectedId = 1l;
-                final var productDto = new ProductDTO(product);
-                productDto.setName("Updated Product");
-                when(productService.update(anyLong(), any())).thenReturn(productDto);
-
-                final var response = mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/products/{id}", expectedId)
-                                .content(objectMapper.writeValueAsString(request))
-                                .contentType(MediaType.APPLICATION_JSON));
-
-                response.andExpect(MockMvcResultMatchers.status().isOk())
-                                .andDo(MockMvcResultHandlers.print())
-                                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(expectedId))
-                                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(productDto.getName()))
-                                .andExpect(MockMvcResultMatchers.jsonPath("$.price").value(productDto.getPrice()))
-                                .andExpect(MockMvcResultMatchers.jsonPath("$.stock").value(productDto.getStock()))
-                                .andExpect(MockMvcResultMatchers.jsonPath("$.category.id").value(category.getId()))
-                                .andExpect(MockMvcResultMatchers.jsonPath("$.category.name").value(category.getName()))
-                                .andExpect(MockMvcResultMatchers.jsonPath("$.category.description")
-                                                .value(category.getDescription()));
         }
 
         @Test
@@ -112,12 +67,12 @@ public class ProductControllerTest {
                                 .andDo(MockMvcResultHandlers.print())
                                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(productDto.getId()))
                                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(productDto.getName()))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value(productDto.getDescription()))
                                 .andExpect(MockMvcResultMatchers.jsonPath("$.price").value(productDto.getPrice()))
                                 .andExpect(MockMvcResultMatchers.jsonPath("$.stock").value(productDto.getStock()))
                                 .andExpect(MockMvcResultMatchers.jsonPath("$.category.id").value(category.getId()))
                                 .andExpect(MockMvcResultMatchers.jsonPath("$.category.name").value(category.getName()))
-                                .andExpect(MockMvcResultMatchers.jsonPath("$.category.description")
-                                                .value(category.getDescription()));
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.category.description").value(category.getDescription()));
         }
 
         @Test
@@ -143,6 +98,49 @@ public class ProductControllerTest {
                                 .andExpect(MockMvcResultMatchers.jsonPath("$.description").isNotEmpty())
                                 .andExpect(MockMvcResultMatchers.jsonPath("$.price").isNotEmpty())
                                 .andExpect(MockMvcResultMatchers.jsonPath("$.stock").isNotEmpty());
+        }
+
+        @Test
+        void givenValidProductId_whenCallsFindById_thenShouldReturnGotProductDTO() throws Exception {
+                final var expectedId = 1l;
+                final var productDto = new ProductDTO(product);
+                when(productService.findById(anyLong())).thenReturn(productDto);
+
+                final var response = mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/products/{id}", expectedId));
+
+                response.andExpect(MockMvcResultMatchers.status().isOk())
+                                .andDo(MockMvcResultHandlers.print())
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(expectedId))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(productDto.getName()))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value(productDto.getDescription()))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.price").value(productDto.getPrice()))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.stock").value(productDto.getStock()))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.category.id").value(category.getId()))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.category.name").value(category.getName()))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.category.description").value(category.getDescription()));
+        }
+
+        @Test
+        void givenValidProductId_whenCallsUpdate_thenShouldReturnProductDTO() throws Exception {
+                final var expectedId = 1l;
+                final var productDto = new ProductDTO(product);
+                productDto.setName("Updated Product");
+                when(productService.update(anyLong(), any())).thenReturn(productDto);
+
+                final var response = mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/products/{id}", expectedId)
+                                .content(objectMapper.writeValueAsString(request))
+                                .contentType(MediaType.APPLICATION_JSON));
+
+                response.andExpect(MockMvcResultMatchers.status().isOk())
+                                .andDo(MockMvcResultHandlers.print())
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(expectedId))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(productDto.getName()))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.description").value(productDto.getDescription()))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.price").value(productDto.getPrice()))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.stock").value(productDto.getStock()))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.category.id").value(category.getId()))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.category.name").value(category.getName()))
+                                .andExpect(MockMvcResultMatchers.jsonPath("$.category.description").value(category.getDescription()));
         }
 
 }
