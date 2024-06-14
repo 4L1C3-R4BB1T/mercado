@@ -28,6 +28,13 @@ Execute o projeto:
 ./gradlew bootRun
 ```
 
+Para executar os testes:
+
+```bash
+./gradlew test --info
+# Acesse o arquivo gerado em /build/reports/tests/test/index.html para informações detalhadas
+```
+
 Para acessar a documentação Swagger:
 
 ```bash
