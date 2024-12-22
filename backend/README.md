@@ -7,7 +7,7 @@
 Clone esse repositório:
 
 ```bash
-https://github.com/4L1C3-R4BB1T/mercado.git
+git clone https://github.com/4L1C3-R4BB1T/mercado.git
 ```
 
 Entre na pasta backend do projeto:
